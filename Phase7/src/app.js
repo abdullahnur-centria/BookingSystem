@@ -2,7 +2,8 @@
 import express from "express";
 import resourcesRouter from "./routes/resources.routes.js";
 import reservationsRouter from "./routes/reservations.routes.js";
-import authRoutes from "./routes/auth.routes.js";
+// Notice how we import requireAuth right here from their file!
+import authRoutes, { requireAuth } from "./routes/auth.routes.js"; 
 import path from "path";
 import { fileURLToPath } from "url";
 
@@ -18,17 +19,6 @@ app.use(express.json()); // Parse application/json
 const publicDir = path.join(__dirname, "..", "public");
 app.use(express.static(publicDir));
 
-// --- Auth Check for Protected Pages ---
-// This checks if the user is logged in before showing the page
-const requirePageAuth = (req, res, next) => {
-  // If they have a login cookie or an auth header, let them through
-  if (req.headers.cookie || req.headers.authorization) {
-    return next();
-  }
-  // Otherwise, redirect them to the login page!
-  return res.redirect('/login');
-};
-
 // --- Views (HTML pages) ---
 app.get("/", (req, res) => {
   res.sendFile(path.join(publicDir, "index.html"));
@@ -38,8 +28,8 @@ app.get("/resources", (req, res) => {
   res.sendFile(path.join(__dirname, 'views/resources.html'));
 });
 
-// PROTECTED ROUTE: Notice how we added 'requirePageAuth' in the middle!
-app.get("/reservations", requirePageAuth, (req, res) => {
+// PROTECTED ROUTE: Now using the teacher's exact security guard!
+app.get("/reservations", requireAuth, (req, res) => {
   res.sendFile(path.join(__dirname, 'views/reservations.html'));
 });
 
