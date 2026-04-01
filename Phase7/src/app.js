@@ -3,7 +3,8 @@ import express from "express";
 import resourcesRouter from "./routes/resources.routes.js";
 import reservationsRouter from "./routes/reservations.routes.js";
 // Notice how we import requireAuth right here from their file!
-import authRoutes, { requireAuth } from "./routes/auth.routes.js"; 
+import authRoutes from "./routes/auth.routes.js";
+import { requireAuth } from "../middleware/auth.middleware.js"; 
 import path from "path";
 import { fileURLToPath } from "url";
 
