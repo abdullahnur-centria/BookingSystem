@@ -1,24 +1,24 @@
-import Header from './components/Header';
-import Hero from './components/Hero';
-import About from './components/About';
-import Features from './components/Features';
-import Products from './components/Products';
-import CTA from './components/CTA';
-import Footer from './components/Footer';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import HomePage from "./pages/HomePage";
+import RegisterPage from "./pages/RegisterPage";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 function App() {
   return (
-    <>
+    <BrowserRouter>
+      {/* The Header stays at the top of EVERY page */}
       <Header />
-      <main>
-        <Hero />
-        <About />
-        <Features />
-        <Products />
-        <CTA />
-      </main>
+      
+      {/* The Routes control what shows up in the middle */}
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/register" element={<RegisterPage />} />
+      </Routes>
+
+      {/* The Footer stays at the bottom of EVERY page */}
       <Footer />
-    </>
+    </BrowserRouter>
   );
 }
 
