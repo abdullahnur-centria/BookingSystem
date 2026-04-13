@@ -47,9 +47,9 @@ export default function RegisterPage() {
     setErrors({});
     setLoading(true);
 
-    // STEP 5: SEND DATA TO HTTPBIN
+    // STEP 5: SEND DATA TO YOUR NEW BACKEND API
     try {
-      const response = await fetch("https://httpbin.org/post", {
+      const response = await fetch("http://localhost:3000/api/bookings", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -106,9 +106,9 @@ export default function RegisterPage() {
       {apiResponse && (
         <div style={{ marginTop: "40px", padding: "20px", backgroundColor: "#f9f9f9", border: "1px solid #ddd", borderRadius: "8px", textAlign: "left" }}>
           <h3 style={{ marginTop: 0, color: "#2c3e50" }}>Booking Successful! 🎉</h3>
-          <p>Here is the server echo verifying your data was received:</p>
+          <p>Here is the server echo verifying your data was saved:</p>
           <pre style={{ backgroundColor: "#2d2d2d", color: "#4af626", padding: "15px", borderRadius: "5px", overflowX: "auto", fontSize: "14px" }}>
-            {JSON.stringify(apiResponse.json, null, 2)}
+            {JSON.stringify(apiResponse, null, 2)}
           </pre>
         </div>
       )}
